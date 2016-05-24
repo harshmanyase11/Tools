@@ -1,0 +1,39 @@
+
+
+CREATE TABLE T_3GPP_MEAS_HEADER
+(
+BeginTime VARCHAR2(50) NOT NULL,
+FileFormatVersion VARCHAR2(30),
+VendorName        VARCHAR2(30),
+DnPrefix           VARCHAR2(100),
+LocalDn           VARCHAR2(100),
+ElementType        VARCHAR2(20),
+EndTime            VARCHAR2(50),
+PRIMARY KEY (BeginTime)
+)
+
+
+Create table T_3GPP_MEAS_DATA
+(
+BeginTime          VARCHAR2(50) NOT NULL,
+JobId              NUMBER(10) NOT NULL,
+GranPeriodDuration VARCHAR2(30),
+GranPeriodEndTime  VARCHAR2(30),
+RepPeriodDuration  VARCHAR2(30),
+ManagedElemnt_LocalDn VARCHAR2(100),
+ManagedElemnt_UserLabel  VARCHAR2(50),
+ManagedElemnt_SW_Version  VARCHAR2(30),
+PRIMARY KEY (JobId),
+FOREIGN KEY (BeginTime) REFERENCES T_3GPP_MEAS_HEADER(BeginTime)
+)
+
+Create table T_3GPP_MEAS_VALUES
+(
+BeginTime    VARCHAR2(50) NOT NULL, 
+JobId        Number(10),
+MeasObjLdn   VARCHAR2(100),
+MeasType     VARCHAR2(100),
+MeasResult   VARCHAR2(100),
+FOREIGN KEY (JobId) REFERENCES T_3GPP_MEAS_DATA(JobId),
+FOREIGN KEY (BeginTime) REFERENCES T_3GPP_MEAS_HEADER(BeginTime)
+)
